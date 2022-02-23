@@ -1,4 +1,4 @@
 package com.nextbasecrm.tests;
 
-public class newTest {
+public class newTest {//
 }
