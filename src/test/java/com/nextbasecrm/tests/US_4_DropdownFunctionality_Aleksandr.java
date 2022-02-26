@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class newTest {
+public class US_4_DropdownFunctionality_Aleksandr {
     WebDriver driver;
 @BeforeMethod
     public void  setUpMethod(){
