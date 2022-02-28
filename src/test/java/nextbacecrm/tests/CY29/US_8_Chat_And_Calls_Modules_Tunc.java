@@ -64,6 +64,11 @@ public class US_8_Chat_And_Calls_Modules_Tunc {
         Assert.assertEquals(actualTitleNames, expectedTitleNames);
 
 
+
+        WebElement messageOption = driver.findElement(By.xpath("//*[@id=\"bx-desktop-tab-im\"]/div"));
+        Assert.assertTrue(messageOption.isDisplayed(), "The message option is not displayed on webpage");
+
+
     }
 
 
