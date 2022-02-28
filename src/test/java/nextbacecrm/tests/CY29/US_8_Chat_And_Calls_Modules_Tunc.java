@@ -4,14 +4,20 @@ import nextbacecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class US_8_Chat_And_Calls_Modules_Tunc {
 
     public WebDriver driver;
+    //Test
 
     @BeforeMethod
     public void setupMethod() {
@@ -21,10 +27,13 @@ public class US_8_Chat_And_Calls_Modules_Tunc {
         driver.get("https://login2.nextbasecrm.com/");
     }
 
+
+
     @Test
     public void loginFunction() {
         WebElement userName = driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
-        userName.sendKeys("hr85@cydeo.com");
+        userName.sendKeys("hr86@cydeo.com");
+
         WebElement userPassword = driver.findElement(By.xpath("//input[@name='USER_PASSWORD']"));
         userPassword.sendKeys("UserUser");
 
@@ -38,13 +47,25 @@ public class US_8_Chat_And_Calls_Modules_Tunc {
         chatAndCallsButton.click();
 
 
+        List<WebElement> chatAndCallModuleButtons = driver.findElements(By.xpath("//div[@class='bx-desktop-appearance-tab']/div[contains(@id,'bx-desktop-tab')]"));
 
 
 
 
+
+        List<String> expectedTitleNames = new ArrayList<>(Arrays.asList("Message(s) ", "Notifications", "Settings", "Activity Stream "));
+
+        List<String> actualTitleNames = new ArrayList<>();
+
+        for (WebElement each : chatAndCallModuleButtons) {
+            actualTitleNames.add(each.getAttribute("title"));
+
+        }
+        Assert.assertEquals(actualTitleNames, expectedTitleNames);
 
 
     }
+
 
 
 }
