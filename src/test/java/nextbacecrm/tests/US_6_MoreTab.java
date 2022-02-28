@@ -14,6 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class US_6_MoreTab {
@@ -59,57 +60,17 @@ public class US_6_MoreTab {
 
         CRM_Utilities.crm_login(driver, usernames, passwords);
 
-        //5: we on the home page or not
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //BrowserUtils.verifyTitle(driver, "Portal");
-
-        //6: Find more tab and click
+        //5: Find more tab and click
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         WebElement moreButton = driver.findElement(By.xpath("//span[@id='feed-add-post-form-link-text']"));
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         moreButton.click();
 
-        //7.1: verify the file option
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        WebElement fileOption = driver.findElement(By.xpath("//span[.='File']"));
-
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        String firstExpectedOption = "File";
-        Assert.assertEquals(fileOption.getText(), firstExpectedOption);
-
-
-        //7.2: verify the Appreciation option
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        WebElement appreciationOption = driver.findElement(By.xpath("//span[.='Appreciation']"));
-
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        String secondExpectedOption = "Appreciation";
-        Assert.assertEquals(appreciationOption.getText(), secondExpectedOption);
-
-
-        //7.3: verify the Announcement option
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        WebElement announcementOption = driver.findElement(By.xpath("//span[.='Announcement']"));
-
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        String thirdExpectedOption = "Announcement";
-        Assert.assertEquals(announcementOption.getText(), thirdExpectedOption);
-
-
-        //7.4: verify the Workflow option
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        WebElement workflowOption = driver.findElement(By.xpath("//span[.='Workflow']"));
-
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        String fourthExpectedOption = "Workflow";
-        Assert.assertEquals(workflowOption.getText(), fourthExpectedOption);
-
-
-        System.out.println("First option is " + fileOption.getText());
-        System.out.println("Second option is " + appreciationOption.getText());
-        System.out.println("Third option is " + announcementOption.getText());
-        System.out.println("Fourth option is " + workflowOption.getText());
-
+        List<WebElement> fourButtons = driver.findElements(By.xpath("//div[@class='menu-popup-items']//span//span[@class='menu-popup-item-text']"));
+        for (WebElement fourButton : fourButtons) {
+            Assert.assertTrue(fourButton.isDisplayed());
+            System.out.println("fourButton.getText() = " + fourButton.getText());
+        }
 
     }
 }
