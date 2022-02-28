@@ -1,6 +1,7 @@
 package nextbacecrm.tests;
 
 import nextbacecrm.utilities.CRM_Utilities;
+import nextbacecrm.utilities.ConfigurationReader;
 import nextbacecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +20,8 @@ import java.util.concurrent.TimeUnit;
 
         @BeforeMethod
         public void setupMethod(){
-            driver = WebDriverFactory.getDriver("chrome");
+            String browserType = ConfigurationReader.getProperty("browser");
+            driver = WebDriverFactory.getDriver(browserType);
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         }
@@ -50,7 +52,8 @@ import java.util.concurrent.TimeUnit;
         @Test (dataProvider = "logInCredential")
         public void sendMessageWithContentOnAppreciation_Test(String username, String password) throws InterruptedException {
             //Step 1: users go to homepage and login
-            driver.get("https://login2.nextbasecrm.com");
+            String envType = ConfigurationReader.getProperty("env");
+            driver.get(envType);
             CRM_Utilities.crm_login(driver, username, password);
 
             //Step 2: click on More tab
@@ -86,7 +89,8 @@ import java.util.concurrent.TimeUnit;
         @Test(dataProvider = "logInCredential")
         public void sendMessageWithoutContentOnAppreciation_Test(String username, String password){
             //Step 1: users go to homepage and login
-            driver.get("https://login2.nextbasecrm.com");
+            String browserType = ConfigurationReader.getProperty("browser");
+            driver = WebDriverFactory.getDriver(browserType);
             CRM_Utilities.crm_login(driver, username, password);
 
             //Step 2: click on More tab
