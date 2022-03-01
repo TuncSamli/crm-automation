@@ -9,38 +9,50 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class US_11_Access_Profile {
-    //start
-    private final String[] usernames = {
-            ConfigurationReader.getProperty("hr1UserName"),
-            ConfigurationReader.getProperty("marketingUser1"),
-            ConfigurationReader.getProperty("helpDeskUser1")
-    };
-    private final String password = ConfigurationReader.getProperty("password");
+
     public  WebDriver driver;
 
     @BeforeMethod
-    public  void setup(){
+    public void setupMethod(){
+        String browserType = ConfigurationReader.getProperty("browser");
+        driver = WebDriverFactory.getDriver(browserType);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get(ConfigurationReader.getProperty("env"));
+    }
+
+    @AfterMethod
+    public void teardownMethod()  {
+        BrowserUtils.sleep(1);
+        driver.quit();
+    }
+
+    @DataProvider(name = "logInCredential")
+    public Object[][] provideData(){
+        return new Object[][]{
+                {"hr85@cydeo.com","UserUser"},
+                {"hr86@cydeo.com","UserUser"},
+                {"hr87@cydeo.com","UserUser"},
+                {"helpdesk85@cydeo.com","UserUser"},
+                {"helpdesk86@cydeo.com","UserUser"},
+                {"helpdesk87@cydeo.com","UserUser"},
+                {"marketing85@cydeo.com","UserUser"},
+                {"marketing86@cydeo.com","UserUser"},
+                {"marketing87@cydeo.com","UserUser"}
+        };
     }
 
 
-    @Test
-    public void myProfileTabVerification(){
+    @Test (dataProvider = "logInCredential")
+    public void myProfileTabVerification(String username, String password){
 
-        for (int l=0;l<usernames.length;l++){
-
-            driver  = WebDriverFactory.getDriver("chrome");
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            driver.get(ConfigurationReader.getProperty("env"));
-            CRM_Utilities.crm_login(driver, usernames[l],password);
+            CRM_Utilities.crm_login(driver, username,password);
 
             // finding 'My Profile' tab
             WebElement userNameProfileTab = driver.findElement(By.id("user-name"));
@@ -72,12 +84,6 @@ public class US_11_Access_Profile {
 
             //Assertion of expected and actual data
             Assert.assertEquals(expectedText,actualText);
-            driver.close();
-
-        }
-
-
-
     }
 
 }
