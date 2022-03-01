@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
@@ -21,6 +22,7 @@ String url ="https://login2.nextbasecrm.com/";
    driver.manage().window().maximize();
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.get(url);
+
    }
 
 
@@ -28,6 +30,7 @@ String url ="https://login2.nextbasecrm.com/";
 
    @Test
     public void login1 (){
+
        WebElement userName = driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
 userName.sendKeys("hr85@cydeo.com");
 
@@ -44,10 +47,9 @@ userBlock.click();
 WebElement LogOutButton =driver.findElement(By.xpath("//span[.='Log out']"));
 LogOutButton.click();
 
-
-//Assert.assertEquals(driver.getCurrentUrl(),url);
-
-
+String expected = "Authorization";
+String actual = driver.getTitle();
+Assert.assertEquals(actual,expected);
 
    }
 
@@ -74,7 +76,9 @@ public void login2 (){
     LogOutButton.click();
 
 
-
+    String expected = "Authorization";
+    String actual = driver.getTitle();
+    Assert.assertEquals(actual,expected);
 }
 
 @Test
@@ -97,13 +101,18 @@ public void login3 (){
     WebElement LogOutButton =driver.findElement(By.xpath("//span[.='Log out']"));
     LogOutButton.click();
 
-
+    String expected = "Authorization";
+    String actual = driver.getTitle();
+    Assert.assertEquals(actual,expected);
 
 }
 
 
-
-
+//
+//@AfterMethod
+//    public void tearDown(){
+//       driver.close();
+//}
 
 
 
