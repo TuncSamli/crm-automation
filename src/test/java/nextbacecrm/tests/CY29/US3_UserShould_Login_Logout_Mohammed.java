@@ -49,7 +49,7 @@ LogOutButton.click();
 
 String expected = "Authorization";
 String actual = driver.getTitle();
-Assert.assertEquals(actual,expected);
+Assert.assertEquals(actual,expected,"Test Failed !!!!");
 
    }
 
