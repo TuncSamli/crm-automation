@@ -1,5 +1,6 @@
 package nextbacecrm.tests.CY29;
 
+import nextbacecrm.utilities.BrowserUtils;
 import nextbacecrm.utilities.CRM_Utilities;
 import nextbacecrm.utilities.ConfigurationReader;
 import nextbacecrm.utilities.WebDriverFactory;
@@ -17,50 +18,63 @@ import java.util.concurrent.TimeUnit;
 
 public class US_11_Access_Profile {
     //start
-
+    private final String[] usernames = {
+            ConfigurationReader.getProperty("hr1UserName"),
+            ConfigurationReader.getProperty("marketingUser1"),
+            ConfigurationReader.getProperty("helpDeskUser1")
+    };
+    private final String password = ConfigurationReader.getProperty("password");
     public  WebDriver driver;
+
     @BeforeMethod
     public  void setup(){
-        driver  = WebDriverFactory.getDriver("chrome");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfigurationReader.getProperty("env"));
-
     }
+
+
     @Test
     public void myProfileTabVerification(){
-        // User login as hr85@cydeo.com
-        CRM_Utilities.crm_login(driver, ConfigurationReader.getProperty("Hr1UserName"),ConfigurationReader.getProperty("password"));
 
-        // finding 'My Profile' tab
-        WebElement userNameProfileTab = driver.findElement(By.id("user-name"));
-        userNameProfileTab.click();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        for (int l=0;l<usernames.length;l++){
 
-        //finding 'My Profile' option
-        WebElement myProfileOptionLink = driver.findElement(By.xpath("//span[.='My Profile']"));
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        myProfileOptionLink.click();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver  = WebDriverFactory.getDriver("chrome");
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.get(ConfigurationReader.getProperty("env"));
+            CRM_Utilities.crm_login(driver, usernames[l],password);
 
-        //locating 5 tabs in the List
-        List<WebElement> profileMenuTabs = driver.findElements(By.xpath("//div[@id='profile-menu-filter']/a"));
+            // finding 'My Profile' tab
+            WebElement userNameProfileTab = driver.findElement(By.id("user-name"));
+            userNameProfileTab.click();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        //Storing 5 tab's names in the List as an Actual Data to be Verified
-        List<String> actualText = new ArrayList<>();
-        for (int i=0; i<profileMenuTabs.size(); i++){
-            actualText.add(profileMenuTabs.get(i).getText());
+            //finding 'My Profile' option
+            WebElement myProfileOptionLink = driver.findElement(By.xpath("//span[.='My Profile']"));
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            BrowserUtils.sleep(1);
+            myProfileOptionLink.click();
+            BrowserUtils.sleep(1);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+            //locating 5 tabs in the List
+            List<WebElement> profileMenuTabs = driver.findElements(By.xpath("//div[@id='profile-menu-filter']/a"));
+
+            //Storing 5 tab's names in the List as an Actual Data to be Verified
+            List<String> actualText = new ArrayList<>();
+            for (int k=0; k<profileMenuTabs.size(); k++){
+                actualText.add(profileMenuTabs.get(k).getText());
+            }
+            //Creating expected data
+            List<String> expectedText = new ArrayList<>();
+            expectedText.addAll(Arrays.asList("General","Drive","Tasks","Calendar","Conversations"));
+
+            //Assertion of displayed tabs count equal to 5
+            Assert.assertEquals(actualText.size(), 5);
+
+            //Assertion of expected and actual data
+            Assert.assertEquals(expectedText,actualText);
+            driver.close();
+
         }
-        //Creating expected data
-        List<String> expectedText = new ArrayList<>();
-        expectedText.addAll(Arrays.asList("General","Drive","Tasks","Calendar","Conversations"));
-
-        //Assertion of displayed tabs count equal to 5
-        Assert.assertEquals(actualText.size(), 5);
-
-        //Assertion of expected and actual data
-        Assert.assertEquals(expectedText,actualText);
-
 
 
 
