@@ -14,7 +14,7 @@ public class CRM_Utilities {
     public static void crm_login(WebDriver driver){
         //3. Enter valid username
         WebElement inputUsername = driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
-        inputUsername.sendKeys("helpdesk1@cybertekschool.com");
+        inputUsername.sendKeys(ConfigurationReader.getProperty("helpDeskUser1"));
 
         //helpdesk1@cybertekschool.com  UserUser
         //Helpdesk2@cybertekschool.com  UserUser

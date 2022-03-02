@@ -1,10 +1,14 @@
 package nextbacecrm.tests.CY29;
 
+import nextbacecrm.utilities.BrowserUtils;
+import nextbacecrm.utilities.CRM_Utilities;
+import nextbacecrm.utilities.ConfigurationReader;
 import nextbacecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -16,29 +20,30 @@ import java.util.concurrent.TimeUnit;
 public class US_08 {
 
     public WebDriver driver;
-    //Test
+
 
     @BeforeMethod
-    public void setupMethod() {
-        driver = WebDriverFactory.getDriver("chrome");
+    public void setUp(){
+
+        String browserType = ConfigurationReader.getProperty("browser");
+
+        driver = WebDriverFactory.getDriver(browserType);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://login2.nextbasecrm.com/");
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+
+
+        driver.get(ConfigurationReader.getProperty("env"));
+
+        CRM_Utilities.crm_login(driver,ConfigurationReader.getProperty("hlp86"),ConfigurationReader.getProperty("password"));
     }
+
 
 
 
     @Test
     public void loginFunction() {
-        WebElement userName = driver.findElement(By.xpath("//input[@name='USER_LOGIN']"));
-        userName.sendKeys("hr86@cydeo.com");
 
-        WebElement userPassword = driver.findElement(By.xpath("//input[@name='USER_PASSWORD']"));
-        userPassword.sendKeys("UserUser");
-
-
-        WebElement loginButton = driver.findElement(By.xpath("//input[@class='login-btn']"));
-        loginButton.click();
 
         //Chat and Calls
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -70,6 +75,10 @@ public class US_08 {
 
     }
 
-
+    @AfterMethod
+    public void tearDown() {
+        BrowserUtils.sleep(3);
+        driver.quit();
+    }
 
 }
