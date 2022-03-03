@@ -37,14 +37,8 @@ public class US_11_Access_Profile {
     public Object[][] provideData(){
         return new Object[][]{
                 {"hr85@cydeo.com","UserUser"},
-                {"hr86@cydeo.com","UserUser"},
-                {"hr87@cydeo.com","UserUser"},
                 {"helpdesk85@cydeo.com","UserUser"},
-                {"helpdesk86@cydeo.com","UserUser"},
-                {"helpdesk87@cydeo.com","UserUser"},
-                {"marketing85@cydeo.com","UserUser"},
-                {"marketing86@cydeo.com","UserUser"},
-                {"marketing87@cydeo.com","UserUser"}
+                {"marketing85@cydeo.com","UserUser"}
         };
     }
 
@@ -61,11 +55,9 @@ public class US_11_Access_Profile {
 
             //finding 'My Profile' option
             WebElement myProfileOptionLink = driver.findElement(By.xpath("//span[.='My Profile']"));
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            BrowserUtils.sleep(1);
+            BrowserUtils.sleep(2);
             myProfileOptionLink.click();
-            BrowserUtils.sleep(1);
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            BrowserUtils.sleep(2);
 
             //locating 5 tabs in the List
             List<WebElement> profileMenuTabs = driver.findElements(By.xpath("//div[@id='profile-menu-filter']/a"));
