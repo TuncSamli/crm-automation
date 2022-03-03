@@ -1,20 +1,16 @@
 package nextbacecrm.tests.CY29;
-
-import com.cydeo.utilities.BrowserUtils;
-import com.cydeo.utilities.CRM_Utilities;
-import com.cydeo.utilities.ConfigurationReader;
-import com.cydeo.utilities.WebDriverFactory;
+import nextbacecrm.utilities.BrowserUtils;
+import nextbacecrm.utilities.CRM_Utilities;
+import nextbacecrm.utilities.ConfigurationReader;
+import nextbacecrm.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.util.concurrent.TimeUnit;
-
 import static org.testng.Assert.assertTrue;
-
 public class US_7_CheckPoll extends ConfigurationReader {
     WebDriver driver;
     @BeforeMethod

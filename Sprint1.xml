@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="smoke suite">
+    <test name="CRM Test">
+        <classes>
+            <class name="nextbacecrm.tests.CY29.US_7_CheckPoll"/>
+            <class name="nextbacecrm.tests.CY29.US_12_MakeAnnouncement">
+            </class>
+        </classes>
+    </test>
+</suite>
