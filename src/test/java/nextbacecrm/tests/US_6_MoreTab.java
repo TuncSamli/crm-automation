@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class US_6_MoreTab {
     public WebDriver driver;
 
-    @BeforeMethod
+    @BeforeMethod //before
     public void setupMethod() {
         String browserType = ConfigurationReader.getProperty("browser");
         driver = WebDriverFactory.getDriver(browserType);
@@ -29,7 +29,7 @@ public class US_6_MoreTab {
 
     }
 
-    @AfterMethod
+    @AfterMethod//after
     public void teardownMethod() {
         driver.quit();
     }
