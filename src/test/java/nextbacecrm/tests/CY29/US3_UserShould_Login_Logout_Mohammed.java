@@ -27,9 +27,6 @@ String url ="https://login2.nextbasecrm.com/";
 
    }
 
-
-
-
    @Test
     public void login1 (){
 
@@ -110,20 +107,11 @@ public void login3 (){
 }
 
 
-//
-//@AfterMethod
-//    public void tearDown(){
-//       driver.close();
-//}
 
-
-
-
-
-
-
-
-
+@AfterMethod
+    public void tearDown(){
+       driver.close();
+}
 
 
 
