@@ -83,7 +83,6 @@ import java.util.concurrent.TimeUnit;
 
             // Step 5: check on visual message posted on activity stream
 
-
         }
 
         @Test(dataProvider = "logInCredential")
