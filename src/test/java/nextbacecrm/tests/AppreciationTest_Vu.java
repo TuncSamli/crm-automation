@@ -82,7 +82,6 @@ import java.util.concurrent.TimeUnit;
             sendButton.click();
 
             // Step 5: check on visual message posted on activity stream
-
         }
 
         @Test(dataProvider = "logInCredential")
