@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.internal.IConfiguration;
+
 import java.util.concurrent.TimeUnit;
 
 public class US3_UserShould_Login_Logout_Mohammed {
@@ -19,14 +21,11 @@ String url ="https://login2.nextbasecrm.com/";
    @BeforeMethod
     public void setUpMethod (){
     driver = WebDriverFactory.getDriver("chrome");
-   driver.manage().window().maximize();
+    driver.manage().window().maximize();
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.get(url);
 
    }
-
-
-
 
    @Test
     public void login1 (){
@@ -108,20 +107,11 @@ public void login3 (){
 }
 
 
-//
-//@AfterMethod
-//    public void tearDown(){
-//       driver.close();
-//}
 
-
-
-
-
-
-
-
-
+@AfterMethod
+    public void tearDown(){
+       driver.close();
+}
 
 
 
